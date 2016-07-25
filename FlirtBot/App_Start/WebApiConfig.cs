@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-//test comment
-namespace Bot_Application1
+
+namespace FlirtBot
 {
     public static class WebApiConfig
     {

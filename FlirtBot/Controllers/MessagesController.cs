@@ -8,7 +8,7 @@ using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
 
-namespace Bot_Application1
+namespace FlirtBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
