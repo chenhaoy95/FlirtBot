@@ -17,11 +17,13 @@ namespace FlirtBot
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
         /// </summary>
+        UserInfo UInfo = new UserInfo();
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
+            ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
+
             if (activity.Type == ActivityTypes.Message)
             {
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 // calculate something for us to return
                 int length = (activity.Text ?? string.Empty).Length;
 
@@ -31,7 +33,7 @@ namespace FlirtBot
             }
             else
             {
-                HandleSystemMessage(activity);
+                await connector.Conversations.ReplyToActivityAsync(HandleSystemMessage(activity));
             }
             var response = Request.CreateResponse(HttpStatusCode.OK);
             return response;
@@ -39,6 +41,7 @@ namespace FlirtBot
 
         private Activity HandleSystemMessage(Activity message)
         {
+
             if (message.Type == ActivityTypes.DeleteUserData)
             {
                 // Implement user deletion here
@@ -49,6 +52,9 @@ namespace FlirtBot
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
                 // Not available in all channels
+                UInfo.Name = message.From.Name;
+                return message.CreateReply($"Hello {message.From.Name}! My name is FlirtBot, and I'm here to help!");
+                
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
