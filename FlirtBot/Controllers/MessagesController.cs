@@ -67,6 +67,8 @@ namespace FlirtBot
             }
             else if (message.Type == ActivityTypes.Ping)
             {
+
+                
             }
 
             return null;
