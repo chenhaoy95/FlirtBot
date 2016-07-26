@@ -23,11 +23,14 @@ namespace FlirtBot.Dialogs
 
         public async Task StartAsync(IDialogContext context)
         {
-            //await context.PostAsync("What's your intent?");
-            //if ()
-            await context.PostAsync("What's your Gender?");
-            //await context.PostAsync("what's happeninggggg");
-            //UserInfo.Name = message.From.Name;
+            context.Wait(SetGenderAsync);
+        }
+
+        public async Task SetGenderAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
+        {
+            var message = await argument;
+            await context.PostAsync(message.Text);
+            context.Wait(SetGenderAsync);
         }
     }
 }
