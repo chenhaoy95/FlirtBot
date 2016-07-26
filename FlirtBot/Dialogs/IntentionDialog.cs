@@ -15,16 +15,12 @@ namespace FlirtBot.Dialogs
     [LuisModel(Constants.AppId, Constants.SubscriptionKey)]
     public class IntentionDialog : IDialog<object>
     {
-        private UserInfo UInfo;
-        public IntentionDialog(UserInfo uinfo)
-        {
-            UInfo = uinfo;
-        }
+
         public async Task StartAsync(IDialogContext context)
         {
             //await context.PostAsync("What's your intent?");
             //if ()
-            await context.PostAsync("What's your intent?");
+            
             context.Wait(SetIntentionAsync);
             //await context.PostAsync("what's happeninggggg");
             //UserInfo.Name = message.From.Name;
@@ -32,7 +28,9 @@ namespace FlirtBot.Dialogs
 
         public async Task SetIntentionAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-=
+            var message = await argument;
+            await context.PostAsync(message.Text);
+            context.Wait(SetIntentionAsync);
         }
 
 
