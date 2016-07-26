@@ -16,13 +16,34 @@ namespace FlirtBot.Dialogs
     [LuisModel(Constants.IntentionAppId, Constants.IntentionSubscriptionKey)]
     public class IntentionDialog : LuisDialog<object>
     {
+        private UserInfo UInfo;
+
+        public IntentionDialog(UserInfo uinfo)
+        {
+            UInfo = uinfo;
+        }
 
         [LuisIntent("SetIntention")]
         public async Task SetIntentionAsync(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync(result.Entities[0].Type);
+            var intention = result.Entities[0].Type;
+
+            if (intention == "IntentionHookUp")
+            {
+                UInfo.Intention = Intention.HookUp;
+            }
+            else if (intention == "IntentionReject")
+            {
+                UInfo.Intention = Intention.Reject;
+            }
+            else if (intention == "IntentionFriend")
+            {
+                UInfo.Intention = Intention.Friend;
+            }
+            
+            //UInfo.Intention = intention;
+            await context.PostAsync(intention);
             context.Done(0);
-            //context.Wait(SetIntentionAsync);
         }
 
     }
