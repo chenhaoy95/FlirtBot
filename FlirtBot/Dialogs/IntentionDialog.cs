@@ -12,7 +12,7 @@ using FlirtBot.Domain;
 namespace FlirtBot.Dialogs
 {
     [Serializable]
-    [LuisModel(Constants.AppId, Constants.SubscriptionKey)]
+    [LuisModel(Constants.IntentionAppId, Constants.IntentionSubscriptionKey)]
     public class IntentionDialog : IDialog<object>
     {
 
