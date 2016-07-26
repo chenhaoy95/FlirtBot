@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Dialogs\IntentionDialog.cs" />
     <Compile Include="Domain\Gender.cs" />
     <Compile Include="Domain\Intention.cs" />
     <Compile Include="Global.asax.cs">

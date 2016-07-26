@@ -7,6 +7,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
+using Microsoft.Bot.Builder.Dialogs;
+using FlirtBot.Dialogs;
 
 namespace FlirtBot
 {
@@ -31,6 +33,15 @@ namespace FlirtBot
                 Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
+            else if (activity.Type == ActivityTypes.ConversationUpdate)
+            {
+                // Handle conversation state changes, like members being added and removed
+                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
+                // Not available in all channels
+                await Conversation.SendAsync(activity, () => new IntentionDialog());
+
+                //UInfo.Name = message.From.Name;
+            }
             else
             {
                 await connector.Conversations.ReplyToActivityAsync(HandleSystemMessage(activity));
@@ -46,15 +57,6 @@ namespace FlirtBot
             {
                 // Implement user deletion here
                 // If we handle user deletion, return a real message
-            }
-            else if (message.Type == ActivityTypes.ConversationUpdate)
-            {
-                // Handle conversation state changes, like members being added and removed
-                // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
-                // Not available in all channels
-                UInfo.Name = message.From.Name;
-                return message.CreateReply($"Hello {message.From.Name}! My name is FlirtBot, and I'm here to help!");
-                
             }
             else if (message.Type == ActivityTypes.ContactRelationUpdate)
             {
