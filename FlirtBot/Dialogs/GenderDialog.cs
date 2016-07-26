@@ -8,12 +8,13 @@ using System.Web;
 using System.Threading.Tasks;
 using Microsoft.Bot.Connector;
 using FlirtBot.Domain;
+using Microsoft.Bot.Builder.Luis.Models;
 
 namespace FlirtBot.Dialogs
 {
     [Serializable]
     [LuisModel(Constants.GenderAppId, Constants.GenderSubscriptionKey)]
-    public class GenderDialog : IDialog<object>
+    public class GenderDialog : LuisDialog<object>
     {
         private UserInfo UInfo;
         public GenderDialog(UserInfo uinfo)
@@ -21,16 +22,20 @@ namespace FlirtBot.Dialogs
             UInfo = uinfo;
         }
 
-        public async Task StartAsync(IDialogContext context)
+        [LuisIntent("GenderIntent")]
+        public async Task SetGenderAsync(IDialogContext context, LuisResult result)
         {
-            context.Wait(SetGenderAsync);
-        }
-
-        public async Task SetGenderAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
-        {
-            var message = await argument;
-            await context.PostAsync(message.Text);
-            context.Wait(SetGenderAsync);
+            var type = result.Entities[0].Type;
+            await context.PostAsync($"Gender set to {type}");
+            if (type == "Male")
+            {
+                UInfo.Gender = Gender.Male;
+            }
+            else
+            {
+                UInfo.Gender = Gender.Female;
+            }
+            context.Done(0);
         }
     }
 }
