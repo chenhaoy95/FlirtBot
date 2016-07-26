@@ -35,8 +35,9 @@ namespace FlirtBot
                 string text = activity.Text.ToLower();
                 if (text.StartsWith("//set_intention"))
                 {
-                    await Conversation.SendAsync(activity, () => new IntentionDialog());
                     //Luis model to set intentions
+                    activity.Text = text.Substring(15);
+                    await Conversation.SendAsync(activity, () => new IntentionDialog());
                 }
                 else if (text.StartsWith("//set_gender"))
                 {
