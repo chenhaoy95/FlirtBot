@@ -32,6 +32,19 @@ namespace FlirtBot
                 // return our reply to the user
                 Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
                 await connector.Conversations.ReplyToActivityAsync(reply);
+                string text = activity.Text.ToLower();
+                if (text.StartsWith("//set_intention"))
+                {
+                    //Luis model to set intentions
+                }
+                else if (text.StartsWith("//set_gender"))
+                {
+                    //more stuff
+                }
+                else
+                {
+                    //actual messages stuff
+                }
             }
             else if (activity.Type == ActivityTypes.ConversationUpdate)
             {
