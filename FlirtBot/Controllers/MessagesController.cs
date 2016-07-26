@@ -38,9 +38,9 @@ namespace FlirtBot
                 // Handle conversation state changes, like members being added and removed
                 // Use Activity.MembersAdded and Activity.MembersRemoved and Activity.Action for info
                 // Not available in all channels
-                await Conversation.SendAsync(activity, () => new IntentionDialog());
+               // UInfo.Name = activity.From.Name;
+               // await Conversation.SendAsync(activity, () => new IntentionDialog(UInfo));
 
-                //UInfo.Name = message.From.Name;
             }
             else
             {

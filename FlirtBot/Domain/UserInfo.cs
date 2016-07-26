@@ -9,7 +9,7 @@ namespace FlirtBot
     {
         public string Name { get; set; }
         public Domain.Gender Gender { get; set; }
-        public Domain.Intention Intention { get; set;}
+        public Domain.Intention? Intention { get; set;}
 
     }
 }
