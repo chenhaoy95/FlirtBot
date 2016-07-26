@@ -35,7 +35,7 @@ namespace FlirtBot
                 }
                 else if (text.StartsWith("//set_gender"))
                 {
-                    activity.Text = text.Substring(13);
+                    activity.Text = text.Substring(12);
                     await Conversation.SendAsync(activity, () => new GenderDialog(UInfo));
                     //more stuff
                 }
