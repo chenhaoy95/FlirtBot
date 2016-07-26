@@ -26,12 +26,6 @@ namespace FlirtBot
 
             if (activity.Type == ActivityTypes.Message)
             {
-                // calculate something for us to return
-                int length = (activity.Text ?? string.Empty).Length;
-
-                // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which was {length} characters");
-                await connector.Conversations.ReplyToActivityAsync(reply);
                 string text = activity.Text.ToLower();
                 if (text.StartsWith("//set_intention"))
                 {
@@ -41,6 +35,8 @@ namespace FlirtBot
                 }
                 else if (text.StartsWith("//set_gender"))
                 {
+                    activity.Text = text.Substring(13);
+                    await Conversation.SendAsync(activity, () => new GenderDialog(UInfo));
                     //more stuff
                 }
                 else
