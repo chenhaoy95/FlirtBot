@@ -17,6 +17,7 @@ namespace FlirtBot.Dialogs
     public class GenderDialog : LuisDialog<object>
     {
         private UserInfo UInfo;
+
         public GenderDialog(UserInfo uinfo)
         {
             UInfo = uinfo;
@@ -26,6 +27,7 @@ namespace FlirtBot.Dialogs
         public async Task SetGenderAsync(IDialogContext context, LuisResult result)
         {
             var type = result.Entities[0].Type;
+            await context.PostAsync($"Gender is currently {UInfo.Gender}");
             await context.PostAsync($"Gender set to {type}");
             if (type == "Male")
             {

@@ -11,5 +11,6 @@ namespace FlirtBot.Resources
         public const string IntentionSubscriptionKey = "8010b0ad1fa34da798d444a2bc976739";
         public const string GenderAppId = "9a48f319-843c-4e3e-a94a-03ce5223b484";
         public const string GenderSubscriptionKey = "071c81f732164290be51c5ad834ad85a";
+        public const string TextAnalyticsSubscriptionKey = "1c46fa1f494a4222800befd8c11c91c6";
     }
 }

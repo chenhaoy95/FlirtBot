@@ -26,6 +26,7 @@ namespace FlirtBot.Dialogs
         [LuisIntent("SetIntention")]
         public async Task SetIntentionAsync(IDialogContext context, LuisResult result)
         {
+
             var intention = result.Entities[0].Type;
 
             if (intention == "IntentionHookUp")
