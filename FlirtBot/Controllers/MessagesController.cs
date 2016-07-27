@@ -48,11 +48,15 @@ namespace FlirtBot
                     //actual messages stuff
                     Activity reply = activity.CreateReply("You haven't told me what your intention with this person is yet. Type in //set_intention followed by either date, friend, hook up, or reject.");
                     await connector.Conversations.ReplyToActivityAsync(reply);
-                }*/
+                }
                 else if (UInfo.Gender == 0)
                 {
                     Activity reply = activity.CreateReply("You haven't told me what gender the person you're talking to is. Type in //set_gender followed by either male or female.");
                     await connector.Conversations.ReplyToActivityAsync(reply);
+                }*/
+                else
+                {
+                    Reject.MakeRequest();
                 }
             }
             else if (activity.Type == ActivityTypes.ConversationUpdate)
