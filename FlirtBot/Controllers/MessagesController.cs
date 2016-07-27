@@ -9,6 +9,7 @@ using Microsoft.Bot.Connector;
 using Newtonsoft.Json;
 using Microsoft.Bot.Builder.Dialogs;
 using FlirtBot.Dialogs;
+using FlirtBot.Responder;
 
 namespace FlirtBot
 {
@@ -20,6 +21,8 @@ namespace FlirtBot
         /// Receive a message from a user and reply to it
         /// </summary>
         UserInfo UInfo = new UserInfo();
+        RejectResponder Reject = new RejectResponder();
+
         public async Task<HttpResponseMessage> Post([FromBody]Activity activity)
         {
             ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
@@ -31,6 +34,7 @@ namespace FlirtBot
                 {
                     //Luis model to set intentions
                     activity.Text = text.Substring(15);
+                    Reject.Respond(activity.Text);
                     await Conversation.SendAsync(activity, () => new IntentionDialog(UInfo));
                 }
                 else if (text.StartsWith("//set_gender"))
