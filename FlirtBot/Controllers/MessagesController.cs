@@ -36,12 +36,19 @@ namespace FlirtBot
                 else if (text.StartsWith("//set_gender"))
                 {
                     activity.Text = text.Substring(12);
-                    await Conversation.SendAsync(activity, () => new GenderDialog(UInfo));
+                    await Conversation.SendAsync(activity, () => new GenderDialog(ref UInfo));
                     //more stuff
                 }
-                else
+                /*else if (UInfo.Intention == null)
                 {
                     //actual messages stuff
+                    Activity reply = activity.CreateReply("You haven't told me what your intention with this person is yet. Type in //set_intention followed by either date, friend, hook up, or reject.");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
+                }*/
+                else if (UInfo.Gender == 0)
+                {
+                    Activity reply = activity.CreateReply("You haven't told me what gender the person you're talking to is. Type in //set_gender followed by either male or female.");
+                    await connector.Conversations.ReplyToActivityAsync(reply);
                 }
             }
             else if (activity.Type == ActivityTypes.ConversationUpdate)
@@ -80,8 +87,7 @@ namespace FlirtBot
             }
             else if (message.Type == ActivityTypes.Ping)
             {
-
-                
+                               
             }
 
             return null;

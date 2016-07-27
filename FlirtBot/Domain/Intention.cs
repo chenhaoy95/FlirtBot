@@ -7,9 +7,11 @@ namespace FlirtBot.Domain
 {
     public enum Intention
     {
-        HookUp =0,
-        Reject=1,
-        Date=2,
-        Friend=3
+        NotSet =0,
+        HookUp =1,
+        Reject=2,
+        Date=3,
+        Friend=4
+            
     }
 }
