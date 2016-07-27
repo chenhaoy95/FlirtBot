@@ -64,9 +64,19 @@ namespace FlirtBot.Responder
             }
 
             var c = await response.Content.ReadAsStringAsync();
+            /*
+            dynamic data = JObject.Parse(c);
+            var data1 = data.documents;
+            var data2 = data1[0];
+            var data3 = data2.keyPhrases;
+            var data4 = data3[0];
+            
+            var test = "test"; */
 
             dynamic data = JObject.Parse(c);
-            Debug.WriteLine(data.documents[0].keyPhrases[0]);
+            string documents = data["documents"][0]["keyPhrases"][0];
+            Debug.WriteLine("The answer is " + documents);
+            //Debug.WriteLine(data.documents[0].keyPhrases[0]);
 
             /*
             var resDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(c);
