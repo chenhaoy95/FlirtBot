@@ -37,6 +37,8 @@ namespace FlirtBot.Dialogs
             {
                 UInfo.Gender = Gender.Female;
             }
+
+            await context.PostAsync($"Gender set to {type}");
             context.Done(0);
         }
     }
